@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Water Quality Checker</title>
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
 </head>
 <body>
@@ -32,7 +32,7 @@
             });
 
             const result = await response.json();
-            document.getElementById('result').innerText = `Prediction: ${result.prediction}`;
+            document.getElementById('result').innerText = `Prediction: ${result.prediction}, Threshold Check: ${result.threshold_quality}`;
         }
     </script>
 </body>
