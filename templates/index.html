@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Water Quality Checker</title>
+</head>
+<body>
+    <h1>Check Water Quality</h1>
+    <form id="qualityForm">
+        Chlorophyll: <input type="number" name="Chlorophyll" step="0.01" required><br>
+        Temperature: <input type="number" name="Temperature" step="0.01" required><br>
+        Dissolved Oxygen: <input type="number" name="Dissolved Oxygen" step="0.01" required><br>
+        pH: <input type="number" name="pH" step="0.01" required><br>
+        Salinity: <input type="number" name="Salinity" step="0.01" required><br>
+        Turbidity: <input type="number" name="Turbidity" step="0.01" required><br>
+        <button type="submit">Predict</button>
+    </form>
+    <h3 id="result"></h3>
+
+    <script>
+        document.getElementById('qualityForm').onsubmit = async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            for (let key in data) data[key] = parseFloat(data[key]);
+
+            const response = await fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerText = `Prediction: ${result.prediction}`;
+        }
+    </script>
+</body>
+</html>
