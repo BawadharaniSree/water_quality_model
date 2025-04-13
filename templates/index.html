@@ -2,23 +2,102 @@
 <html>
 <head>
     <title>Water Quality Checker</title>
-        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <!-- Include Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Check Water Quality</h1>
-    <form id="qualityForm">
-        Chlorophyll: <input type="number" name="Chlorophyll" step="0.01" required><br>
-        Temperature: <input type="number" name="Temperature" step="0.01" required><br>
-        Dissolved Oxygen: <input type="number" name="Dissolved Oxygen" step="0.01" required><br>
-        pH: <input type="number" name="pH" step="0.01" required><br>
-        Salinity: <input type="number" name="Salinity" step="0.01" required><br>
-        Turbidity: <input type="number" name="Turbidity" step="0.01" required><br>
-        <button type="submit">Predict</button>
-    </form>
-    <h3 id="result"></h3>
+<body class="bg-gray-50">
+    <div class="container mx-auto py-6 space-y-6">
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-3xl font-bold tracking-tight">Water Quality Checker</h2>
+            <p class="text-muted-foreground text-sm">Enter water quality parameters to predict its status</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="space-y-6">
+            <div class="flex space-x-4 border-b border-gray-200">
+                <button id="tab1" class="pb-2 border-b-2 border-blue-600 text-blue-600 font-medium">
+                    Predict Water Quality
+                </button>
+                <!--<button id="tab2" class="pb-2 text-gray-500 hover:text-gray-700 font-medium">
+                    Manage Parameters
+                </button>-->
+            </div>
+
+            <!-- Tab Content: Predict Water Quality -->
+            <div id="tab1-content" class="space-y-6">
+                <div class="rounded-lg border bg-white p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4">Predict Water Quality</h3>
+                    <form id="qualityForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Chlorophyll</label>
+                            <input type="number" name="Chlorophyll" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Temperature</label>
+                            <input type="number" name="Temperature" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Dissolved Oxygen</label>
+                            <input type="number" name="Dissolved Oxygen" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">pH</label>
+                            <input type="number" name="pH" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Salinity</label>
+                            <input type="number" name="Salinity" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Turbidity</label>
+                            <input type="number" name="Turbidity" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200">
+                            Predict
+                        </button>
+                    </form>
+                    <h3 id="result" class="mt-4 text-lg font-semibold text-gray-800"></h3>
+                </div>
+            </div>
+
+            <!-- Tab Content: Manage Parameters -->
+            <div id="tab2-content" class="hidden space-y-6">
+                <div class="rounded-lg border bg-white p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4">Manage Parameters</h3>
+                    <p class="text-sm text-gray-500">Configure water quality parameters here.</p>
+                    <!-- Example: Add parameter form -->
+                    <form id="parameterForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Parameter Name</label>
+                            <input type="text" name="parameterName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Value</label>
+                            <input type="number" name="parameterValue" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                        </div>
+                        <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-200">
+                            Add Parameter
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
+        // Handle tab switching
+        document.getElementById('tab1').addEventListener('click', () => {
+            document.getElementById('tab1-content').classList.remove('hidden');
+            document.getElementById('tab2-content').classList.add('hidden');
+        });
+        document.getElementById('tab2').addEventListener('click', () => {
+            document.getElementById('tab2-content').classList.remove('hidden');
+            document.getElementById('tab1-content').classList.add('hidden');
+        });
+
+        // Handle form submission for prediction
         document.getElementById('qualityForm').onsubmit = async function (e) {
             e.preventDefault();
             const formData = new FormData(this);
@@ -33,7 +112,14 @@
 
             const result = await response.json();
             document.getElementById('result').innerText = `Prediction: ${result.prediction}`;
-        }
+        };
+
+        // Handle form submission for adding parameters (optional)
+        document.getElementById('parameterForm').onsubmit = function (e) {
+            e.preventDefault();
+            alert('Parameter added successfully!');
+            this.reset();
+        };
     </script>
 </body>
 </html>
