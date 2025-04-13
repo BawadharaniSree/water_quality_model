@@ -62,12 +62,12 @@
                 </div>
             </div>
 
-            <!-- Tab Content: Manage Parameters -->
+            <!-- Tab Content: Manage Parameters 
             <div id="tab2-content" class="hidden space-y-6">
                 <div class="rounded-lg border bg-white p-6 shadow-sm">
                     <h3 class="text-lg font-semibold mb-4">Manage Parameters</h3>
                     <p class="text-sm text-gray-500">Configure water quality parameters here.</p>
-                    <!-- Example: Add parameter form -->
+                    <-- Example: Add parameter form 
                     <form id="parameterForm" class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Parameter Name</label>
@@ -82,20 +82,20 @@
                         </button>
                     </form>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 
     <script>
         // Handle tab switching
-        document.getElementById('tab1').addEventListener('click', () => {
+        /*document.getElementById('tab1').addEventListener('click', () => {
             document.getElementById('tab1-content').classList.remove('hidden');
             document.getElementById('tab2-content').classList.add('hidden');
         });
         document.getElementById('tab2').addEventListener('click', () => {
             document.getElementById('tab2-content').classList.remove('hidden');
             document.getElementById('tab1-content').classList.add('hidden');
-        });
+        });*/
 
         // Handle form submission for prediction
         document.getElementById('qualityForm').onsubmit = async function (e) {
@@ -115,11 +115,11 @@
         };
 
         // Handle form submission for adding parameters (optional)
-        document.getElementById('parameterForm').onsubmit = function (e) {
+        /*document.getElementById('parameterForm').onsubmit = function (e) {
             e.preventDefault();
             alert('Parameter added successfully!');
             this.reset();
-        };
+        };*/
     </script>
 </body>
 </html>
